@@ -21,3 +21,16 @@ button {
  background-color: transparent;
  cursor: pointer;
 }
+
+.app {
+ border: 1px solid #ccc;
+ width: 35%;
+ margin: auto;
+}
+
+.flex-row {
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: space-between;
+}
