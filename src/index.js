@@ -4,5 +4,12 @@ function renderList(arr) {
  <input type="text" value="${item.description}" data-index="${item.index}" class="todo-text ${item.completed ? 'completed' : ''}">
  <i class="fas fa-ellipsis-v dots"></i>
  </li>`).join('');
- 
+ document.querySelectorAll('.todo-text').forEach((text) => {
+  text.addEventListener('focus', (event) => {
+    document.querySelectorAll('.todo').forEach((t) => {
+      t.style.backgroundColor = '#fff';
+    });
+    event.target.parentNode.style.backgroundColor = '#fea';
+  });
+});
 }
