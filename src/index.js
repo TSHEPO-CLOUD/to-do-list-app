@@ -12,4 +12,16 @@ function renderList(arr) {
     event.target.parentNode.style.backgroundColor = '#fea';
   });
 });
+
+const checkboxes = document.querySelectorAll('.checkbox');
+  checkboxes.forEach((chbox) => {
+    chbox.addEventListener('change', (event) => {
+      event.target.nextElementSibling.classList.toggle('completed');
+    });
+  });
+
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+ renderList(todoList);
+});
