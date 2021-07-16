@@ -24,14 +24,12 @@ export function allowDrop(event) {
 }
 
 export function drop(event) {
-  targetItem = document.getElementById(event.target.dataset.id);
+  targetItem = document.getElementById(event.target.parentNode.id);
   current.parentElement.insertBefore(current, targetItem);
-
   const children = Array.from(current.parentElement.children);
   const updatedList = children.map((el, index) => ({
-    index,
-    completed: el.children[0].checked,
-    description: el.children[1].value,
-  }));
+    index, completed: el.children[0].checked, description: el.children[1].value,
+  }
+  ));
   localStorage.setItem('TodoList', JSON.stringify(updatedList));
 }
