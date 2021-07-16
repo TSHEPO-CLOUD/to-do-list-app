@@ -24,7 +24,7 @@ A project based on JS DOM manipulation, modules system and Webpack in particular
 
 #INSTALL
 Run `npm install`
-Run `run build`
+Run `npm build`
 
 ## Contributors
 
