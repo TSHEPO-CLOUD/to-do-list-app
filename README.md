@@ -39,7 +39,7 @@ Run `npm build`
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](issues/).
+Feel free to check the [issues page.](https://github.com/TSHEPO-CLOUD/to-do-list-app/issues/3)
 
 ## Show your support
 
