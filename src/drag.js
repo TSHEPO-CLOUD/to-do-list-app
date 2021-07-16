@@ -15,3 +15,7 @@ export function dragEnd() {
 export function dragEnter(event) {
  event.preventDefault();
 }
+
+export function dragLeave() {
+ targetItem = null;
+}
