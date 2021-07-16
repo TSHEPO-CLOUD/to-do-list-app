@@ -1,5 +1,10 @@
 import {
-  dragStart, allowDrop, dragEnd, drop, dragEnter, dragLeave,
+  dragStart,
+  allowDrop,
+  dragEnd,
+  drop,
+  dragEnter,
+  dragLeave,
 } from './drag.js';
 import './style.css';
 import updateStatus from './status.js';
@@ -40,11 +45,25 @@ let todoList = [
 ];
 
 function renderList(arr) {
-  list.innerHTML = arr.map((item) => `<li class="flex-row todo" draggable="true" id="${item.index}">
-                                      <input type="checkbox" class="checkbox" data-id="${item.index}"  ${item.completed ? 'checked' : ''}>
-                                      <input type="text" value="${item.description}" data-index="${item.index}" draggable="false" class="todo-text ${item.completed ? 'completed' : ''}">
-                                      <i class="fas fa-ellipsis-v dots" data-id="${item.index}"></i>
-                                      </li>`).join('');
+  list.innerHTML = arr
+    .map(
+      (item) => `<li class="flex-row todo" draggable="true" id="${item.index}">
+                                      <input type="checkbox" class="checkbox" data-id="${
+  item.index
+}"  ${item.completed ? 'checked' : ''}>
+                                      <input type="text" value="${
+  item.description
+}" data-index="${
+  item.index
+}" draggable="false" class="todo-text ${
+  item.completed ? 'completed' : ''
+}">
+                                      <i class="fas fa-ellipsis-v dots" data-id="${
+  item.index
+}"></i>
+                                      </li>`,
+    )
+    .join('');
 
   list.addEventListener('dragenter', dragEnter);
 
@@ -81,7 +100,10 @@ window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('TodoList')) {
     todoList = JSON.parse(localStorage.getItem('TodoList'));
   } else {
-    localStorage.setItem('TodoList', JSON.stringify(todoList.sort((a, b) => +a.index - +b.index)));
+    localStorage.setItem(
+      'TodoList',
+      JSON.stringify(todoList.sort((a, b) => +a.index - +b.index)),
+    );
   }
 
   renderList(todoList.sort((a, b) => +a.index - +b.index));
