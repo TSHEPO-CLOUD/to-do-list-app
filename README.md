@@ -22,6 +22,9 @@ A project based on JS DOM manipulation, modules system and Webpack in particular
 - Type `git clone (copied link)` on the currently opened terminal or command prompt
 - Remember to change `(copied link)` to `https://github.com/TSHEPO-CLOUD/to-do-list-app/tree/list-structure` which is the name of the repositor
 
+#INSTALL
+Run `npm install`
+Run `run build`
 
 ## Contributors
 
