@@ -19,3 +19,19 @@ export function dragEnter(event) {
 export function dragLeave() {
  targetItem = null;
 }
+
+export function allowDrop(event) {
+ event.preventDefault();
+}
+
+export function drop(event) {
+ targetItem = document.getElementById(event.target.dataset.id);
+ current.parentElement.insertBefore(current, targetItem);
+
+ const children = Array.from(current.parentElement.children);
+ const updatedList = children.map((el, index) => ({
+   index, completed: el.children[0].checked, description: el.children[1].value,
+ }
+ ));
+ localStorage.setItem('TodoList', JSON.stringify(updatedList));
+}
