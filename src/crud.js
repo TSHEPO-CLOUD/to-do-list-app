@@ -20,3 +20,9 @@ export function removeTodo(event) {
    renderList(modifiedIndex);
  }
 }
+
+
+export function clearCompleted() {
+ const todos = getFromStorage('TodoList');
+ renderList(todos.filter((todo) => !todo.completed));
+}
