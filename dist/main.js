@@ -100,13 +100,63 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, style) {\
 
 /***/ }),
 
+/***/ "./src/crud.js":
+/*!*********************!*\
+  !*** ./src/crud.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addTodo\": () => (/* binding */ addTodo),\n/* harmony export */   \"removeTodo\": () => (/* binding */ removeTodo),\n/* harmony export */   \"clearCompleted\": () => (/* binding */ clearCompleted)\n/* harmony export */ });\n/* harmony import */ var _renderList_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderList.js */ \"./src/renderList.js\");\n/* harmony import */ var _storage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./storage.js */ \"./src/storage.js\");\n\n\n\nfunction addTodo(event) {\n  event.preventDefault();\n  const input = event.target.children[0];\n  const todos = (0,_storage_js__WEBPACK_IMPORTED_MODULE_1__.getFromStorage)('TodoList');\n  todos.push({ index: todos.length, description: input.value, completed: false });\n  input.value = '';\n  (0,_storage_js__WEBPACK_IMPORTED_MODULE_1__.saveToStorage)('TodoList', todos);\n  (0,_renderList_js__WEBPACK_IMPORTED_MODULE_0__.default)(todos);\n}\n\nfunction removeTodo(event) {\n if (event.target.dataset.type === 'deleteBtn') {\n   const todos = (0,_storage_js__WEBPACK_IMPORTED_MODULE_1__.getFromStorage)('TodoList');\n   todos.splice(event.target.parentNode.id, 1);\n   const modifiedIndex = todos.map((el, index) => ({ ...el, index }));\n   (0,_storage_js__WEBPACK_IMPORTED_MODULE_1__.saveToStorage)('TodoList', modifiedIndex);\n   (0,_renderList_js__WEBPACK_IMPORTED_MODULE_0__.default)(modifiedIndex);\n }\n}\n\n\nfunction clearCompleted() {\n const todos = (0,_storage_js__WEBPACK_IMPORTED_MODULE_1__.getFromStorage)('TodoList');\n (0,_renderList_js__WEBPACK_IMPORTED_MODULE_0__.default)(todos.filter((todo) => !todo.completed));\n}\n\n//# sourceURL=webpack://to-do-list-app/./src/crud.js?");
+
+/***/ }),
+
+/***/ "./src/drag.js":
+/*!*********************!*\
+  !*** ./src/drag.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"dragStart\": () => (/* binding */ dragStart),\n/* harmony export */   \"dragEnd\": () => (/* binding */ dragEnd),\n/* harmony export */   \"dragEnter\": () => (/* binding */ dragEnter),\n/* harmony export */   \"dragLeave\": () => (/* binding */ dragLeave),\n/* harmony export */   \"allowDrop\": () => (/* binding */ allowDrop),\n/* harmony export */   \"drop\": () => (/* binding */ drop)\n/* harmony export */ });\n\nlet current = null;\nlet targetItem = null;\n\nfunction dragStart() {\n  current = this;\n  current.classList.add('current-active');\n}\n\nfunction dragEnd() {\n  current.classList.remove('current-active');\n  current = null;\n}\n\nfunction dragEnter(event) {\n  event.preventDefault();\n}\n\nfunction dragLeave() {\n  targetItem = null;\n}\n\nfunction allowDrop(event) {\n  event.preventDefault();\n}\n\nfunction drop(event) {\n  targetItem = document.getElementById(event.target.parentNode.id);\n  current.parentElement.insertBefore(current, targetItem);\n  const children = Array.from(current.parentElement.children);\n  const updatedList = children.map((el, index) => ({\n    index, completed: el.children[0].checked, description: el.children[1].value,\n  }\n  ));\n  localStorage.setItem('TodoList', JSON.stringify(updatedList));\n}\n\n//# sourceURL=webpack://to-do-list-app/./src/drag.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\nconst list = document.getElementById('list');\n\nconst todoList = [\n  {\n    description: 'Install and set up webpack',\n    completed: false,\n    index: 4,\n  },\n  {\n    description: 'Edit GitHub profile Page',\n    completed: true,\n    index: 3,\n  },\n  {\n    description: 'Edit README.md File',\n    completed: false,\n    index: 2,\n  },\n  {\n    description: 'Submit the To do project',\n    completed: false,\n    index: 1,\n  },\n];\n\nfunction renderList(arr) {\n  list.innerHTML = arr.sort((a, b) => +a.index - +b.index).map((item) => `<li class=\"flex-row todo\" data-id=\"${item.index}\">\n <input type=\"checkbox\" class=\"checkbox\" id=\"${item.index}\" ${item.completed ? 'checked' : ''}>\n <input type=\"text\" value=\"${item.description}\" data-index=\"${item.index}\" class=\"todo-text ${item.completed ? 'completed' : ''}\">\n <i class=\"fas fa-ellipsis-v dots\"></i>\n </li>`).join('');\n  document.querySelectorAll('.todo-text').forEach((text) => {\n    text.addEventListener('focus', (event) => {\n      document.querySelectorAll('.todo').forEach((t) => {\n        t.style.backgroundColor = '#fff';\n      });\n      event.target.parentNode.style.backgroundColor = '#fea';\n    });\n  });\n\n  const checkboxes = document.querySelectorAll('.checkbox');\n  checkboxes.forEach((chbox) => {\n    chbox.addEventListener('change', (event) => {\n      event.target.nextElementSibling.classList.toggle('completed');\n    });\n  });\n}\n\nwindow.addEventListener('DOMContentLoaded', () => {\n  renderList(todoList);\n});\n\n//# sourceURL=webpack://to-do-list-app/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _renderList_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderList.js */ \"./src/renderList.js\");\n/* harmony import */ var _crud_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./crud.js */ \"./src/crud.js\");\n/* harmony import */ var _storage_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./storage.js */ \"./src/storage.js\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n\n\n\n\nconst storage = 'TodoList';\nlet todoList = [];\n\nconst form = document.getElementById('form');\nform.addEventListener('submit', _crud_js__WEBPACK_IMPORTED_MODULE_1__.addTodo);\n\nconst clearBtn = document.getElementById('clear-btn');\nclearBtn.addEventListener('click', _crud_js__WEBPACK_IMPORTED_MODULE_1__.clearCompleted);\n\nconst list = document.getElementById('list');\nlist.addEventListener('click', _crud_js__WEBPACK_IMPORTED_MODULE_1__.removeTodo);\nwindow.addEventListener('DOMContentLoaded', () => {\n  if (localStorage.getItem('TodoList')) {\n    todoList = (0,_storage_js__WEBPACK_IMPORTED_MODULE_2__.getFromStorage)(storage);\n  } else {\n    (0,_storage_js__WEBPACK_IMPORTED_MODULE_2__.saveToStorage)(storage, todoList);\n  }\n  (0,_renderList_js__WEBPACK_IMPORTED_MODULE_0__.default)((0,_storage_js__WEBPACK_IMPORTED_MODULE_2__.getFromStorage)(storage));\n});\n\n//# sourceURL=webpack://to-do-list-app/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/renderList.js":
+/*!***************************!*\
+  !*** ./src/renderList.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ renderList)\n/* harmony export */ });\n/* harmony import */ var _drag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./drag.js */ \"./src/drag.js\");\n/* harmony import */ var _status_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./status.js */ \"./src/status.js\");\n/* harmony import */ var _storage_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./storage.js */ \"./src/storage.js\");\n\n\n\n\nfunction renderList(arr) {\n const list = document.getElementById('list');\n\n list.innerHTML = arr.map((item) => `<li class=\"flex-row todo\" draggable=\"true\" id=\"${item.index}\">\n                                     <input type=\"checkbox\" class=\"checkbox\" data-id=\"${item.index}\"  ${item.completed ? 'checked' : ''}>\n                                     <input type=\"text\" value=\"${item.description}\" data-index=\"${item.index}\" draggable=\"false\" class=\"todo-text ${item.completed ? 'completed' : ''}\">\n                                     <i class=\"fas fa-ellipsis-v dots\" data-id=\"${item.index}\"></i>\n                                     <i class=\"fas fa-trash deleteBtn\" data-type=\"deleteBtn\" data-trash=\"${item.index}\"></i>\n                                     </li>`).join('');\n\n list.addEventListener('dragenter', _drag_js__WEBPACK_IMPORTED_MODULE_0__.dragEnter);\n\n document.querySelectorAll('.todo').forEach((t) => {\n   t.addEventListener('dragstart', _drag_js__WEBPACK_IMPORTED_MODULE_0__.dragStart);\n   t.addEventListener('dragend', _drag_js__WEBPACK_IMPORTED_MODULE_0__.dragEnd);\n   t.addEventListener('dragenter', _drag_js__WEBPACK_IMPORTED_MODULE_0__.dragEnter);\n   t.addEventListener('dragleave', _drag_js__WEBPACK_IMPORTED_MODULE_0__.dragLeave);\n   t.addEventListener('drop', _drag_js__WEBPACK_IMPORTED_MODULE_0__.drop);\n   t.addEventListener('dragover', _drag_js__WEBPACK_IMPORTED_MODULE_0__.allowDrop);\n });\n\n document.querySelectorAll('.todo-text').forEach((text) => {\n   const trash = document.querySelector(`[data-trash='${text.dataset.index}']`);\n   text.addEventListener('focus', (event) => {\n     document.querySelectorAll('.todo').forEach((t) => {\n       t.style.backgroundColor = '#fff';\n     });\n     event.target.parentNode.style.backgroundColor = '#fea';\n     trash.classList.add('active');\n   });\n\n   text.addEventListener('blur', () => {\n     document.querySelectorAll('.todo').forEach((t) => {\n       t.style.backgroundColor = '#fff';\n     });\n     setTimeout(() => trash.classList.remove('active'), 100);\n   });\n\n   text.addEventListener('input', (event) => {\n     const editable = (0,_storage_js__WEBPACK_IMPORTED_MODULE_2__.getFromStorage)('TodoList');\n     editable[event.target.dataset.index].description = event.target.value;\n     (0,_storage_js__WEBPACK_IMPORTED_MODULE_2__.saveToStorage)('TodoList', editable);\n   });\n });\n\n const checkboxes = document.querySelectorAll('.checkbox');\n checkboxes.forEach((chbox) => {\n   chbox.addEventListener('change', _status_js__WEBPACK_IMPORTED_MODULE_1__.default);\n });\n}\n\n//# sourceURL=webpack://to-do-list-app/./src/renderList.js?");
+
+/***/ }),
+
+/***/ "./src/status.js":
+/*!***********************!*\
+  !*** ./src/status.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ updateStatus)\n/* harmony export */ });\nfunction updateStatus(event) {\n  event.target.nextElementSibling.classList.toggle('completed');\n  const status = JSON.parse(localStorage.getItem('TodoList'));\n  status[event.target.dataset.id].completed = event.target.checked;\n  localStorage.setItem('TodoList', JSON.stringify(status));\n}\n\n\n//# sourceURL=webpack://to-do-list-app/./src/status.js?");
+
+/***/ }),
+
+/***/ "./src/storage.js":
+/*!************************!*\
+  !*** ./src/storage.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getFromStorage\": () => (/* binding */ getFromStorage),\n/* harmony export */   \"saveToStorage\": () => (/* binding */ saveToStorage)\n/* harmony export */ });\nconst getFromStorage = (name) => JSON.parse(localStorage.getItem(name));\n\nconst saveToStorage = (name, data) => localStorage.setItem(name, JSON.stringify(data));\n\n//# sourceURL=webpack://to-do-list-app/./src/storage.js?");
 
 /***/ })
 
