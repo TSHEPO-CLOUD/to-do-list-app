@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-const LocalStorage = function () {
+const LocalStorage = (function () {
   let store = {};
 
   return {
@@ -19,7 +19,7 @@ const LocalStorage = function () {
       store = {};
     },
   };
-}();
+}());
 
 function addTodo(event) {
   const list = JSON.parse(LocalStorage.getItem('todo'));
