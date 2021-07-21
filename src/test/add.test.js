@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-const LocalStorage = (function () {
+const LocalStorage = function () {
   let store = {};
 
   return {
@@ -19,31 +19,27 @@ const LocalStorage = (function () {
       store = {};
     },
   };
-}());
+}();
 
 function addTodo(event) {
   const list = JSON.parse(LocalStorage.getItem('todo'));
   list.push(event);
   list.forEach((object) => {
     const li = document.createElement('li');
-    li.classList.add("list")
+    li.classList.add('list');
     li.innerHTML = `<input type="checkbox" class="checkbox" data-id="${object.index}"  ${object.completed ? 'checked' : ''}>
         <input type="text" value="${object.description}" data-index="${object.index}" draggable="false" class="todo-text ${object.completed ? 'completed' : ''}">
         <i class="fas fa-ellipsis-v dots" data-id="${object.index}"></i>
-        <i class="fas fa-trash deleteBtn" data-type="deleteBtn" data-trash="${object.index}"></i>`
+        <i class="fas fa-trash deleteBtn" data-type="deleteBtn" data-trash="${object.index}"></i>`;
     document.body.appendChild(li);
-  })
-  LocalStorage.setItem('todo', JSON.stringify(list))
+  });
+  LocalStorage.setItem('todo', JSON.stringify(list));
 }
 
 function removeTodo(event) {
-  if (event.target.dataset.type === 'deleteBtn') {
-    const todos = getFromStorage('TodoList');
-    todos.splice(event.target.parentNode.id, 1);
-    const modifiedIndex = todos.map((el, index) => ({ ...el, index }));
-    saveToStorage('TodoList', modifiedIndex);
-    renderList(modifiedIndex);
-  }
+  const todos = JSON.parse(LocalStorage.getItem('todo'));
+  todos.splice(todos[event], 1);
+  LocalStorage.setItem('todo', JSON.stringify(todos));
 }
 
 beforeAll(() => {
@@ -68,15 +64,16 @@ describe('add function', () => {
   });
   test('Add html', () => {
     const newObj = { description: 'zero', completed: false, index: 3 };
-    addTodo(newObj)
+    addTodo(newObj);
     const list = document.querySelectorAll('.list');
     expect(list).toHaveLength(4);
-  })
+  });
 });
 
 describe('remove function', () => {
-  test("remove a function from the list", () => {
-    const list = LocalStorage.getItem("todo")
-    
-  })
-})
+  test('remove a function from the list', () => {
+    removeTodo(0);
+    const list = JSON.parse(LocalStorage.getItem('todo'));
+    expect(list).toHaveLength(3);
+  });
+});
