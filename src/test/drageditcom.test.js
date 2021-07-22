@@ -1,0 +1,51 @@
+/**
+ * @jest-environment jsdom
+ */
+
+const LocalStorage = (function () {
+  let store = {};
+
+  return {
+    getItem(key) {
+      return store[key] || null;
+    },
+    setItem(key, value) {
+      store[key] = value.toString();
+    },
+    removeItem(key) {
+      delete store[key];
+    },
+    clear() {
+      store = {};
+    },
+  };
+}());
+
+function editTodo(list, index, newDescription) {
+  list[index].description = newDescription;
+  LocalStorage.setItem('todo', JSON.stringify(list));
+  return list;
+}
+
+beforeAll(() => {
+  const list = [
+    { description: 'hiii', completed: false, index: 1 },
+    { description: 'hello', completed: false, index: 2 },
+  ];
+  LocalStorage.setItem('todo', JSON.stringify(list));
+});
+
+describe('Edit last object in the array', () => {
+  test('Edit last object', () => {
+    const newDescription = 'Hello everyone';
+    const listResult = JSON.parse(LocalStorage.getItem('todo'));
+    const result = editTodo(listResult, 1, newDescription);
+    expect(result[1].description).toBe('Hello everyone');
+  });
+  test('Edit first object', () => {
+    const newDescription = 'first element';
+    const listResult = JSON.parse(LocalStorage.getItem('todo'));
+    const result = editTodo(listResult, 0, newDescription);
+    expect(result[0].description).toBe('first element');
+  });
+});
