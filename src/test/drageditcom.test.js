@@ -33,6 +33,16 @@ function removeCompleted(list) {
   return newList;
 }
 
+function updateStatus(list, index) {
+  if (list[index].completed === true) {
+    list[index].completed = false;
+  } else {
+    list[index].completed = true;
+  }
+  LocalStorage.setItem('todo', JSON.stringify(list));
+  return list;
+}
+
 beforeAll(() => {
   const list = [
     { description: 'hiii', completed: false, index: 1 },
@@ -62,5 +72,18 @@ describe('All completed tasks will disapear', () => {
     const listResult = JSON.parse(LocalStorage.getItem('todo'));
     const result = removeCompleted(listResult);
     expect(result).toHaveLength(2);
+  });
+});
+
+describe('The function will update completed status', () => {
+  test('2nd object will turn true', () => {
+    const listResult = JSON.parse(LocalStorage.getItem('todo'));
+    const checked = updateStatus(listResult, 1);
+    expect(checked[1].completed).toBe(true);
+  });
+  test('2nd object will turn false now', () => {
+    const listResult = JSON.parse(LocalStorage.getItem('todo'));
+    const checked = updateStatus(listResult, 1);
+    expect(checked[1].completed).toBe(false);
   });
 });
