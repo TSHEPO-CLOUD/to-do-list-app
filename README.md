@@ -26,6 +26,9 @@ A project based on JS DOM manipulation, modules system and Webpack in particular
 Run `npm install`
 Run `npm build`
 
+To test the app, run in the terminal:
+npm run test
+
 ## Contributors
 
 👤 **TSHEPO DAVID MOLEFE**
