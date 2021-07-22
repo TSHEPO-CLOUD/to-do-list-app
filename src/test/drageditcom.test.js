@@ -27,10 +27,17 @@ function editTodo(list, index, newDescription) {
   return list;
 }
 
+function removeCompleted(list) {
+  const newList = list.filter((todo) => todo.completed !== true);
+  LocalStorage.setItem('todo', JSON.stringify(newList));
+  return newList;
+}
+
 beforeAll(() => {
   const list = [
     { description: 'hiii', completed: false, index: 1 },
     { description: 'hello', completed: false, index: 2 },
+    { description: 'masi', completed: true, index: 3 },
   ];
   LocalStorage.setItem('todo', JSON.stringify(list));
 });
@@ -47,5 +54,13 @@ describe('Edit last object in the array', () => {
     const listResult = JSON.parse(LocalStorage.getItem('todo'));
     const result = editTodo(listResult, 0, newDescription);
     expect(result[0].description).toBe('first element');
+  });
+});
+
+describe('All completed tasks will disapear', () => {
+  test('Last task will disapear', () => {
+    const listResult = JSON.parse(LocalStorage.getItem('todo'));
+    const result = removeCompleted(listResult);
+    expect(result).toHaveLength(2);
   });
 });
