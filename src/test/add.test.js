@@ -76,4 +76,14 @@ describe('remove function', () => {
     const list = JSON.parse(LocalStorage.getItem('todo'));
     expect(list).toHaveLength(3);
   });
+  test('remove all objects and expect null', () => {
+    removeTodo(0);
+    removeTodo(1);
+    removeTodo(3);
+    let list = JSON.parse(LocalStorage.getItem('todo'));
+    if (list.length === 0) {
+      list = null;
+    }
+    expect(list).toBe(null);
+  });
 });
