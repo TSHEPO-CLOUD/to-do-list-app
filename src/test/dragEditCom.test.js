@@ -21,7 +21,6 @@ const LocalStorage = (function () {
   };
 }());
 
-
 function updateStatus(list, index) {
   if (list[index].completed === true) {
     list[index].completed = false;
