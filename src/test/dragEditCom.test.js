@@ -45,8 +45,6 @@ function editTodo(list, index, newDescription) {
   return list;
 }
 
-
-
 function dragDrop(list, position1, position2) {
   list.forEach((object) => {
     const li = document.createElement('li');
