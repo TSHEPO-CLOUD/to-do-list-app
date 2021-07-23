@@ -22,6 +22,16 @@ const LocalStorage = (function () {
 }());
 
 
+function updateStatus(list, index) {
+  if (list[index].completed === true) {
+    list[index].completed = false;
+  } else {
+    list[index].completed = true;
+  }
+  LocalStorage.setItem('todo', JSON.stringify(list));
+  return list;
+}
+
 
 function removeCompleted(list) {
   const newList = list.filter((todo) => todo.completed !== true);
@@ -35,15 +45,7 @@ function editTodo(list, index, newDescription) {
   return list;
 }
 
-function updateStatus(list, index) {
-  if (list[index].completed === true) {
-    list[index].completed = false;
-  } else {
-    list[index].completed = true;
-  }
-  LocalStorage.setItem('todo', JSON.stringify(list));
-  return list;
-}
+
 
 function dragDrop(list, position1, position2) {
   list.forEach((object) => {
