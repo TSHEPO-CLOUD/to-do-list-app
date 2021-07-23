@@ -31,7 +31,6 @@ function updateStatus(list, index) {
   return list;
 }
 
-
 function removeCompleted(list) {
   const newList = list.filter((todo) => todo.completed !== true);
   LocalStorage.setItem('todo', JSON.stringify(newList));
