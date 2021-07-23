@@ -21,16 +21,18 @@ const LocalStorage = (function () {
   };
 }());
 
-function editTodo(list, index, newDescription) {
-  list[index].description = newDescription;
-  LocalStorage.setItem('todo', JSON.stringify(list));
-  return list;
-}
+
 
 function removeCompleted(list) {
   const newList = list.filter((todo) => todo.completed !== true);
   LocalStorage.setItem('todo', JSON.stringify(newList));
   return newList;
+}
+
+function editTodo(list, index, newDescription) {
+  list[index].description = newDescription;
+  LocalStorage.setItem('todo', JSON.stringify(list));
+  return list;
 }
 
 function updateStatus(list, index) {
