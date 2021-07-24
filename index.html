@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
+ <title>To Do App</title>
+<script defer src="/to-do-list-app/main.js"></script></head>
+<body>
+ <main id="app" class="app">
+  <header class="header flex-row">
+   <h1>Current Day To Do List</h1>
+   <i class="fas fa-sync-alt"></i>
+  </header>
+  <form class="form flex-row" id="form">
+   <input type="text" id="input" placeholder="Add your to do list.." autocomplete="off" class="input">
+   <button type="submit"><i class="fas fa-level-down-alt"></i></button>
+  </form>
+  <ul id="list"></ul>
+  <footer class="footer flex-row">
+   <button type="button" class="clear-btn" id="clear-btn">Clear all done</button>
+  </footer>
+  
+ </main>
+ <script src="index.js"></script>
+</body>
+</html>
